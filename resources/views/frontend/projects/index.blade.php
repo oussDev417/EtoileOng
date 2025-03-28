@@ -4,76 +4,69 @@
 
 @section('content')
 
-<!-- BREADCRUMBS SECTION START -->
-<section class="ul-breadcrumb ul-section-spacing">
-    <div class="ul-container">
-        <h2 class="ul-breadcrumb-title">Nos projets</h2>
-        <ul class="ul-breadcrumb-nav">
-            <li><a href="{{ route('home') }}">Accueil</a></li>
-            <li><span class="separator"><i class="flaticon-right"></i></span></li>
-            <li>Nos projets</li>
-        </ul>
+<!-- page-title -->
+<section class="page-title centred">
+    <div class="bg-layer" style="background-image: url(https://images.unsplash.com/photo-1590845947670-c009801ffa74?q=80&w=2059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);"></div>
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-56.png);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Nos Projets</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{{ route('home') }}">Accueil</a></li>
+                <li>Projets</li>
+            </ul>
+        </div>
     </div>
 </section>
-<!-- BREADCRUMBS SECTION END -->
+<!-- page-title end -->
 
-
-<!-- PROJECTS SECTION START -->
-<section class="ul-projects ul-section-spacing">
-    <div class="ul-container">
-        <div class="row ul-bs-row justify-content-center">
+<!-- event-page-section -->
+<section class="event-page-section bg-color-3 pt_120 pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
             @if(isset($projects) && count($projects) > 0)
-                @foreach($projects as $key => $project)
-                    @if($key % 3 == 0)
-                    <div class="col-lg-8 col-md-6 col-10 col-xxs-12">
-                        <div class="ul-project">
-                            <div class="ul-project-img">
-                                <img src="{{ asset($project->image ?? 'assets/img/project-1.jpg') }}" alt="{{ $project->title }}">
+                @foreach($projects as $project)
+                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                    <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <a href="{{ route('projects.show', $project->slug) }}">
+                                        <img src="{{ asset($project->image ?? 'assets/images/resource/cause-26.jpg') }}" alt="{{ $project->title }}">
+                                    </a>
+                                </figure>
                             </div>
-                            <div class="ul-project-txt">
-                                <div>
-                                    <h3 class="ul-project-title"><a href="{{ route('projects.show', $project->slug) }}">{{ $project->title }}</a></h3>
-                                    <p class="ul-project-descr">{{ Str::limit(strip_tags($project->short_description), 100) }}</p>
+                            <div class="lower-content">
+                                <h3><a href="{{ route('projects.show', $project->slug) }}">{{ $project->title }}</a></h3>
+                                <p>{{ Str::limit(strip_tags($project->short_description), 100) }}</p>
+                                <div class="link-btn">
+                                    <a href="{{ route('projects.show', $project->slug) }}">
+                                        <span>Voir détails</span><i class="icon-2"></i>
+                                    </a>
                                 </div>
-                                <a href="{{ route('projects.show', $project->slug) }}" class="ul-project-btn"><i class="flaticon-up-right-arrow"></i></a>
                             </div>
                         </div>
                     </div>
-                    @else
-                    <div class="col-lg-4 col-md-6 col-10 col-xxs-12">
-                        <div class="ul-project ul-project--sm">
-                            <div class="ul-project-img">
-                                <img src="{{ asset($project->image ?? 'assets/img/project-2.jpg') }}" alt="{{ $project->title }}">
-                            </div>
-                            <div class="ul-project-txt">
-                                <div>
-                                    <h3 class="ul-project-title"><a href="{{ route('projects.show', $project->slug) }}">{{ $project->title }}</a></h3>
-                                    <p class="ul-project-descr">{{ Str::limit(strip_tags($project->short_description), 60) }}</p>
-                                </div>
-                                <a href="{{ route('projects.show', $project->slug) }}" class="ul-project-btn"><i class="flaticon-up-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
+                </div>
                 @endforeach
             @else
                 <div class="col-md-12">
-                    <p class="text-center">Aucun projet disponible pour le moment.</p>
+                    <div class="centred">
+                        <p>Aucun projet disponible pour le moment.</p>
+                    </div>
                 </div>
             @endif
         </div>
         
         <!-- Pagination -->
         @if(isset($projects) && method_exists($projects, 'links'))
-            <div class="row mt-4">
-                <div class="col-md-12 text-center">
-                    {{ $projects->links() }}
-                </div>
+            <div class="pagination-wrapper centred pt_30">
+                {{ $projects->links() }}
             </div>
         @endif
     </div>
 </section>
-<!-- PROJECTS SECTION END -->
+<!-- event-page-section end -->
 
 <!-- DYNAMIC SECTIONS START -->
 @if(isset($pageSections) && count($pageSections) > 0)
@@ -83,4 +76,4 @@
 @endif
 <!-- DYNAMIC SECTIONS END -->
 
-@endsection 
+@endsection

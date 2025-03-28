@@ -1,73 +1,109 @@
-<!-- TESTIMONIAL SECTION START -->
-<section class="ul-testimonial-2 ul-section-spacing">
-    <div class="ul-container wow animate__fadeInUp">
-        <div class="ul-section-heading">
-            <div>
-                <span class="ul-section-sub-title">Témoignages</span>
-                <h2 class="ul-section-title">Ce que les gens disent de nous</h2>
-            </div>
-            <a href="#" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i> Tous les témoignages</a>
+<!-- testimonial-section -->
+<section class="testimonial-section alternat-2 pt_120 pb_90">
+    <div class="pattern-layer" style="background-image: url({{ asset('assets/images/shape/shape-55.png') }});"></div>
+    <div class="auto-container">
+        <div class="sec-title mb_50 centred">
+            <span class="sub-title mb_12">Témoignages</span>
+            <h2>L'avis de nos <span>Bénéficiaires</span></h2>
         </div>
-
-        <div class="row ul-testimonial-2-row gy-4">
-            <!-- card -->
-            <div class="col-md-4">
-                <div class="ul-testimonial-2-overview">
-                    <span class="rating">4.9</span>
-                    <div class="ul-testimonial-2-overview-stars">
-                        <i class="flaticon-star"></i>
-                        <i class="flaticon-star"></i>
-                        <i class="flaticon-star"></i>
-                        <i class="flaticon-star"></i>
-                        <i class="flaticon-star-1"></i>
-                    </div>
-                    <span class="ul-testimonial-2-overview-title">5 étoiles</span>
-                    <p class="ul-testimonial-2-overview-descr">Découvrez ce que nos clients et partenaires disent de notre travail et de notre engagement.</p>
-                    <div class="ul-testimonial-2-overview-reviewers">
-                        @if(isset($testimonials) && $testimonials->count() > 0)
-                            @foreach($testimonials->take(4) as $reviewer)
-                                <img src="{{ asset('storage/testimonials/' . $reviewer->image) }}" alt="{{ $reviewer->name }}">
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- txt -->
-            <div class="col-md-8">
-                <div class="ul-testimonial-2-slider swiper">
-                    <div class="swiper-wrapper">
-                        @if(isset($testimonials) && $testimonials->count() > 0)
-                            @foreach($testimonials as $testimonial)
-                                <!-- single slide -->
-                                <div class="swiper-slide">
-                                    <div class="ul-review ul-review-2">
-                                        <span class="icon"><i class="flaticon-quote-1"></i></span>
-                                        <p class="ul-review-descr">{{ $testimonial->message }}</p>
-                                        <div class="ul-review-bottom">
-                                            <div class="ul-review-reviewer">
-                                                <div class="reviewer-image">
-                                                    <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" alt="{{ $testimonial->name }}">
-                                                </div>
-                                                <div>
-                                                    <h3 class="reviewer-name">{{ $testimonial->name }}</h3>
-                                                    <span class="reviewer-role">{{ $testimonial->position }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+        <div class="three-item-carousel owl-carousel owl-theme owl-nav-none dots-style-one">
+            @if(isset($testimonials) && $testimonials->count() > 0)
+                @foreach($testimonials as $testimonial)
+                    <div class="testimonial-block-one">
+                        <div class="inner-box">
+                            <ul class="rating"> 
+                                <li><i class="icon-33"></i></li>
+                                <li><i class="icon-33"></i></li>
+                                <li><i class="icon-33"></i></li>
+                                <li><i class="icon-33"></i></li>
+                                <li><i class="icon-33"></i></li>
+                            </ul>
+                            <h3>"{{ Str::limit($testimonial->message, 50) }}"</h3>
+                            <div class="text">
+                                <p>{{ $testimonial->message }}</p>
+                            </div>
+                            <div class="author-box">
+                                <figure class="thumb-box"><img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" alt="{{ $testimonial->name }}"></figure>
+                                <div class="inner">
+                                    <h4>{{ $testimonial->name }}</h4>
+                                    <span class="designation">{{ $testimonial->position }}</span>
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="ul-testimonial-2-slider-nav">
-                        <button class="prev"><i class="flaticon-back"></i></button>
-                        <button class="next"><i class="flaticon-next"></i></button>
+                @endforeach
+            @else
+                <div class="testimonial-block-one">
+                    <div class="inner-box">
+                        <ul class="rating"> 
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                        </ul>
+                        <h3>"L'ONG Etoile D'afrik a changé ma vie"</h3>
+                        <div class="text">
+                            <p>Grâce aux projets de l'ONG Etoile D'afrik, notre communauté a pu développer des initiatives durables qui ont considérablement amélioré nos conditions de vie.</p>
+                            <p>Je suis reconnaissant pour leur soutien continu et leur engagement envers notre développement.</p>
+                        </div>
+                        <div class="author-box">
+                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-8.png') }}" alt=""></figure>
+                            <div class="inner">
+                                <h4>Marie Koné</h4>
+                                <span class="designation">Bénéficiaire</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="testimonial-block-one">
+                    <div class="inner-box">
+                        <ul class="rating"> 
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                        </ul>
+                        <h3>"Un impact réel sur notre communauté"</h3>
+                        <div class="text">
+                            <p>L'approche participative de l'ONG Etoile D'afrik nous a permis de nous approprier les projets et d'assurer leur pérennité. Leur équipe est à l'écoute et travaille en étroite collaboration avec nous.</p>
+                            <p>Ensemble, nous avons pu réaliser des changements significatifs.</p>
+                        </div>
+                        <div class="author-box">
+                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-9.png') }}" alt=""></figure>
+                            <div class="inner">
+                                <h4>Amadou Diallo</h4>
+                                <span class="designation">Leader communautaire</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-block-one">
+                    <div class="inner-box">
+                        <ul class="rating"> 
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                            <li><i class="icon-33"></i></li>
+                        </ul>
+                        <h3>"Une vision claire pour l'avenir"</h3>
+                        <div class="text">
+                            <p>En tant que partenaire de l'ONG Etoile D'afrik, j'ai été impressionné par leur professionnalisme et leur dévouement. Leurs projets sont bien structurés et répondent aux besoins réels des populations.</p>
+                            <p>Leur impact positif est visible et mesurable dans toutes leurs interventions.</p>
+                        </div>
+                        <div class="author-box">
+                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-10.png') }}" alt=""></figure>
+                            <div class="inner">
+                                <h4>Fatou Camara</h4>
+                                <span class="designation">Partenaire financier</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </section>
-<!-- TESTIMONIAL SECTION END -->
+<!-- testimonial-section end -->

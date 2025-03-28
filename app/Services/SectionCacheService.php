@@ -52,7 +52,10 @@ class SectionCacheService
                 'statFacts' => \App\Models\StatFact::latest()->get(),
                 'axes' => \App\Models\Axe::latest()->get(),
                 'testimonials' => \App\Models\Testimonial::latest()->get(),
-                'galeries' => \App\Models\Galerie::latest()->take(8)->get(),
+                'galeries' => \App\Models\Galerie::with('category')->latest()->take(8)->get(),
+                'galerieCategories' => \App\Models\GalerieCategory::with(['galeries' => function($query) {
+                    $query->latest();
+                }])->get(),
                 'settings' => \App\Models\Setting::first(),
             ];
         });

@@ -1,47 +1,44 @@
-<!-- BLOG SECTION START -->
-<section class="ul-blogs-2 ul-section-spacing">
-    <div class="ul-container wow animate__fadeInUp">
-        <div class="ul-section-heading">
-            <div class="left">
-                <span class="ul-section-sub-title">Actualités</span>
-                <h2 class="ul-section-title">Nos dernières nouvelles</h2>
-            </div>
-
-            <a href="{{ route('news.index') }}" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i> Toutes les actualités</a>
+<!-- news-section -->
+<section class="news-section bg-color-3 pt_0 pb_90">
+    <div class="auto-container">
+        <div class="sec-title mb_50 centred">
+            <span class="sub-title mb_12">Actualités</span>
+            <h2>Dernières <span>Nouvelles</span></h2>
         </div>
-
-        <div class="row row-cols-md-3 row-cols-2 row-cols-xxs-1 ul-bs-row justify-content-center">
+        <div class="row clearfix">
             @if(isset($news) && count($news) > 0)
                 @foreach($news as $post)
-                <!-- single blog -->
-                <div class="col">
-                    <div class="ul-blog ul-blog-2">
-                        <div class="ul-blog-img">
-                            @if($post->thumbnail)
-                                <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}">
-                            @else
-                                <img src="assets/img/blog-1.jpg" alt="Blog Image">
-                            @endif
-                            <div class="date">
-                                <span class="number">{{ $post->created_at->format('d') }}</span>
-                                <span class="txt">{{ $post->created_at->format('M') }}</span>
-                            </div>
-                        </div>
-                        <div class="ul-blog-txt">
-                            <div class="ul-blog-infos">
-                                <!-- single info -->
-                                <div class="ul-blog-info">
-                                    <span class="icon"><i class="flaticon-account"></i></span>
-                                    <span class="text font-normal text-[14px] text-etGray">par RACED</span>
-                                </div>
-                                <!-- single info -->
-                                <div class="ul-blog-info">
-                                    <span class="icon"><i class="flaticon-price-tag"></i></span>
-                                    <span class="text font-normal text-[14px] text-etGray">{{ $post->category->title ?? 'Actualité' }}</span>
+                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                    <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <a href="{{ route('news.show', $post->slug) }}">
+                                        @if($post->thumbnail)
+                                            <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}">
+                                        @else
+                                            <img src="assets/images/news/news-1.jpg" alt="Image d'actualité">
+                                        @endif
+                                    </a>
+                                </figure>
+                                <div class="post-date">
+                                    <i class="icon-32"></i>
+                                    <span>{{ $post->created_at->format('M d, Y') }}</span>
                                 </div>
                             </div>
-                            <a href="{{ route('news.show', $post->slug) }}" class="ul-blog-title">{{ $post->title }}</a>
-                            <a href="{{ route('news.show', $post->slug) }}" class="ul-blog-btn">Lire plus <span class="icon"><i class="flaticon-next"></i></span></a>
+                            <div class="lower-content">
+                                <ul class="post-info">
+                                    <li><span>{{ $post->category->title ?? 'Actualité' }}</span></li>
+                                    <li>Par ONG Etoile D'afrik</li>
+                                </ul>
+                                <h3><a href="{{ route('news.show', $post->slug) }}">{{ $post->title }}</a></h3>
+                                <div class="link-btn">
+                                    <a href="{{ route('news.show', $post->slug) }}">
+                                        <span>Lire plus</span>
+                                        <i class="icon-2"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,7 +50,6 @@
             @endif
         </div>
         
-        <!-- Pagination -->
         @if(isset($news) && method_exists($news, 'links'))
             <div class="row mt-5">
                 <div class="col-md-12">
@@ -65,4 +61,4 @@
         @endif
     </div>
 </section>
-<!-- BLOG SECTION END -->
+<!-- news-section end -->

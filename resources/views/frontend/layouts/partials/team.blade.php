@@ -3,7 +3,7 @@
     <div class="auto-container">
         <div class="sec-title mb_50">
             <span class="sub-title mb_12">Notre Équipe</span>
-            <h2>Nos Bénévoles</h2>
+            <h2>Nous sommes une equipe solide</h2>
         </div>
         <div class="row clearfix">
             @if(isset($equipes) && $equipes->count() > 0)
@@ -21,10 +21,13 @@
                                     </figure>
                                     <ul class="social-links">
                                         @if(isset($member->linkedin))
-                                            <li><a href="{{ $member->linkedin }}" target="_blank"><i class="icon-22"></i></a></li>
+                                            <li><a href="{{ $member->linkedin }}" target="_blank"><i class="icon-23"></i></a></li>
                                         @endif
                                         @if($member->email)
-                                            <li><a href="mailto:{{ $member->email }}"><i class="icon-23"></i></a></li>
+                                            <li><a href="mailto:{{ $member->email }}"><i class="icon-18"></i></a></li>
+                                        @endif
+                                        @if($member->phone)
+                                            <li><a href="tel:{{ $member->phone }}"><i class="icon-19"></i></a></li>
                                         @endif
                                     </ul>
                                 </div>

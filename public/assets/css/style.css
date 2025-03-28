@@ -682,7 +682,6 @@ html.lenis {
 .sticky-header a{
   color: #000 !important;
   font-weight: 25px;
-  text-transform: uppercase;
 }
 .sticky-header a:hover{
   color: green !important;

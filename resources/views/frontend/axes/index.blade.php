@@ -3,34 +3,51 @@
 @section('title', 'Nos opportunités')
 
 @section('content')
-<!-- BREADCRUMBS SECTION START -->
-<section class="ul-breadcrumb ul-section-spacing">
-    <div class="ul-container">
-        <h2 class="ul-breadcrumb-title">Nos opportunités</h2>
-        <ul class="ul-breadcrumb-nav">
-            <li><a href="{{ route('home') }}">Accueil</a></li>
-            <li><span class="separator"><i class="flaticon-right"></i></span></li>
-            <li>Nos opportunités</li>
-        </ul>
+
+<!-- page-title -->
+<section class="page-title centred">
+    <div class="bg-layer" style="background-image: url(https://images.unsplash.com/photo-1590845947670-c009801ffa74?q=80&w=2059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);"></div>
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-56.png);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Nos opportunités</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{{ route('home') }}">Accueil</a></li>
+                <li>Nos opportunités</li>
+            </ul>
+        </div>
     </div>
 </section>
-<!-- BREADCRUMBS SECTION END -->
+<!-- page-title end -->
 
-<!-- Axes SECTION START -->
-<section class="ul-section-spacing overflow-hidden">
-    <div class="ul-container">
-        <div class="row row-cols-md-3 row-cols-2 row-cols-xxs-1 ul-bs-row">
+<!-- event-page-section -->
+<section class="event-page-section bg-color-3 pt_120 pb_120">
+    <div class="auto-container">
+        <div class="sec-title centred mb_50">
+            <span class="sub-title">ONG Etoile D'afrik</span>
+            <h2>Nos axes d'intervention</h2>
+        </div>
+        <div class="row clearfix">
             @foreach($axes as $axe)
-            <!-- single axe -->
-            <div class="col">
-                <div class="ul-service ul-service--inner">
-                    <div class="ul-service-img">
-                        <img src="{{ asset('storage/axes/' . $axe->image) }}" alt="{{ $axe->title }}">
-                    </div>
-                    <div class="ul-service-txt">
-                        <h3 class="ul-service-title"><a href="{{ route('axes.show', $axe->slug) }}">{{ $axe->title }}</a></h3>
-                        <p class="ul-service-descr">{{ Str::limit($axe->short_description, 100) }}</p>
-                        <a href="{{ route('axes.show', $axe->slug) }}" class="ul-service-btn"><i class="flaticon-up-right-arrow"></i> Voir détails</a>
+            <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <a href="{{ route('axes.show', $axe->slug) }}">
+                                    <img src="{{ asset('storage/axes/' . $axe->image) }}" alt="{{ $axe->title }}">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="lower-content">
+                            <h3><a href="{{ route('axes.show', $axe->slug) }}">{{ $axe->title }}</a></h3>
+                            <p>{{ Str::limit($axe->short_description, 100) }}</p>
+                            <div class="link-btn">
+                                <a href="{{ route('axes.show', $axe->slug) }}">
+                                    <span>Voir détails</span><i class="icon-2"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +55,6 @@
         </div>
     </div>
 </section>
-<!-- Axes SECTION END -->
-
+<!-- event-page-section end -->
 
 @endsection

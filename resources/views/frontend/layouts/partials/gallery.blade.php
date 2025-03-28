@@ -1,215 +1,200 @@
-<!-- Gallery Section Start -->
-<section class="ul-gallery-section ul-section-spacing">
-    <div class="ul-container">
-        <div class="ul-section-header text-center">
-            <h2 class="ul-section-title">Notre galerie d'images</h2>
-            <div class="ul-section-title-divider"></div>
-            <p class="ul-section-subtitle">Découvrez nos moments forts en images</p>
+<!-- gallery-page-section -->
+<section class="gallery-page-section bg-color-1 pt_120 pb_90 centred">
+    <div class="auto-container">
+        <div class="sec-title mb_50">
+            <span class="sub-title mb_12">Notre Galerie</span>
+            <h2>Un voyage à travers notre <br />galerie <span>d'images</span></h2>
         </div>
-        
-        <div class="ul-gallery-filter">
-            <ul class="ul-gallery-filter-nav">
-                <li class="active" data-filter="*">Tout</li>
-                @foreach($galleryCategories as $category)
-                    <li data-filter=".{{ Str::slug($category->name) }}">{{ $category->name }}</li>
-                @endforeach
-            </ul>
-        </div>
-        
-        <div class="ul-gallery-grid">
-            @foreach($gallery as $item)
-                <div class="ul-gallery-item {{ Str::slug($item->category->name) }}">
-                    <div class="ul-gallery-item-inner">
-                        @if($item->path)
-                            <img src="{{ asset($item->path) }}" alt="{{ $item->title }}" />
-                            <div class="ul-gallery-overlay">
-                                <div class="ul-gallery-actions">
-                                    <a href="{{ asset($item->path) }}" class="ul-gallery-zoom"><i class="flaticon-search"></i></a>
-                                </div>
-                                <h3 class="ul-gallery-title">{{ $item->title }}</h3>
-                                <p class="ul-gallery-category">{{ $item->category->name }}</p>
-                            </div>
+        <div class="sortable-masonry">
+            <div class="auto-container">
+                <div class="filter-tabs mb_50">
+                    <ul class="filter-btns clearfix horizontal-filter">
+                        <li class="active filter-btn" data-filter="*">Tout</li>
+                        @if(isset($galerieCategories))
+                            @foreach($galerieCategories as $category)
+                                <li class="filter-btn" data-filter=".{{ Str::slug($category->name) }}">{{ $category->name }}</li>
+                            @endforeach
+                        @else
+                            @php
+                                $galerieCategories = \App\Models\GalerieCategory::with(['galeries' => function($query) {
+                                    $query->latest();
+                                }])->get();
+                            @endphp
+                            @foreach($galerieCategories as $category)
+                                <li class="filter-btn" data-filter=".{{ Str::slug($category->name) }}">{{ $category->name }}</li>
+                            @endforeach
                         @endif
-                    </div>
+                    </ul>
                 </div>
-            @endforeach
+                <div class="items-container row clearfix">
+                    @foreach($galeries as $item)
+                        <div class="col-lg-4 col-md-6 col-sm-12 masonry-item small-column {{ Str::slug($item->category->name) }}">
+                            <div class="gallery-block-one">
+                                <div class="inner-box">
+                                    @if($item->path)
+                                        <figure class="image-box">
+                                            <img src="{{ asset($item->path) }}" alt="{{ $item->title }}" class="img-fluid">
+                                        </figure>
+                                        <div class="content-box">
+                                            <div class="inner">
+                                                <div class="view-btn">
+                                                    <a href="{{ asset($item->path) }}" class="lightbox-image" data-fancybox="gallery">
+                                                        <i class="icon-9"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="text-box">
+                                                    <h3><a href="#">{{ $item->title }}</a></h3>
+                                                    <span>{{ $item->category->name }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<!-- Gallery Section End -->
+<!-- gallery-page-section end -->
 
 <style>
-/* Styles pour la galerie */
-.ul-gallery-section {
-    background-color: #f9f9f9;
-}
-
-.ul-section-header {
-    margin-bottom: 50px;
-}
-
-.ul-section-title {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #222;
-}
-
-.ul-section-title-divider {
-    width: 80px;
-    height: 3px;
-    background-color: var(--ul-primary);
-    margin: 0 auto 20px;
-}
-
-.ul-section-subtitle {
-    font-size: 16px;
-    color: #666;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.ul-gallery-filter {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.ul-gallery-filter-nav {
-    display: inline-flex;
-    flex-wrap: wrap;
+.horizontal-filter {
+    display: flex;
     justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.ul-gallery-filter-nav li {
+.filter-btn {
     padding: 8px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: 500;
-    border-radius: 30px;
     transition: all 0.3s ease;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    background-color: #f5f5f5;
 }
 
-.ul-gallery-filter-nav li.active,
-.ul-gallery-filter-nav li:hover {
-    background-color: var(--ul-primary);
-    color: #fff;
+.filter-btn.active {
+    background-color: #198754;
+    color: white;
+    font-weight: bold;
 }
 
-.ul-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+.filter-btn:hover:not(.active) {
+    background-color: #e0e0e0;
 }
 
-.ul-gallery-item {
+.gallery-block-one {
+    margin-bottom: 30px;
+    position: relative;
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.gallery-block-one .inner-box {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.gallery-block-one .image-box img {
+    width: 100%;
+    height: auto;
     transition: transform 0.3s ease;
 }
 
-.ul-gallery-item:hover {
-    transform: translateY(-5px);
-}
-
-.ul-gallery-item-inner {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-}
-
-.ul-gallery-item-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.ul-gallery-item:hover .ul-gallery-item-inner img {
+.gallery-block-one:hover .image-box img {
     transform: scale(1.1);
 }
 
-.ul-gallery-overlay {
+.gallery-block-one .content-box {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
     padding: 20px;
-    text-align: center;
+    color: #fff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
 }
 
-.ul-gallery-item:hover .ul-gallery-overlay {
-    opacity: 1;
+.gallery-block-one:hover .content-box {
+    transform: translateY(0);
 }
 
-.ul-gallery-actions {
-    margin-bottom: 15px;
+.gallery-block-one .view-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-.ul-gallery-zoom {
-    display: inline-flex;
+.gallery-block-one .view-btn a {
+    color: #fff;
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    height: 45px;
-    background-color: var(--ul-primary);
-    color: #fff;
-    border-radius: 50%;
     transition: all 0.3s ease;
 }
 
-.ul-gallery-zoom:hover {
-    background-color: #fff;
-    color: var(--ul-primary);
+.gallery-block-one .view-btn a:hover {
+    background: #198754;
 }
 
-.ul-gallery-title {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
+.gallery-block-one .text-box h3 {
+    font-size: 20px;
     margin-bottom: 5px;
 }
 
-.ul-gallery-category {
-    color: rgba(255, 255, 255, 0.8);
+.gallery-block-one .text-box h3 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.gallery-block-one .text-box span {
     font-size: 14px;
-}
-
-@media (max-width: 768px) {
-    .ul-gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-    
-    .ul-section-title {
-        font-size: 28px;
-    }
-}
-
-@media (max-width: 576px) {
-    .ul-gallery-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .ul-gallery-filter-nav {
-        gap: 5px;
-    }
-    
-    .ul-gallery-filter-nav li {
-        padding: 6px 15px;
-        font-size: 14px;
-    }
+    color: #ddd;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.masonry-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Retirer la classe active de tous les boutons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            
+            // Récupérer le filtre sélectionné
+            const filterValue = this.getAttribute('data-filter');
+            
+            // Filtrer les éléments
+            galleryItems.forEach(item => {
+                if (filterValue === '*') {
+                    item.style.display = 'block';
+                } else {
+                    if (item.classList.contains(filterValue.replace('.', ''))) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
+    
+    // Initialiser le filtre "Tout" au chargement
+    document.querySelector('.filter-btn[data-filter="*"]').click();
+});
+</script>

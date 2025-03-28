@@ -241,8 +241,8 @@ sup {
 
 a {
   color: var(--bs-white);
-  text-transform: uppercase;
-  font-weight: 25px;
+  font-weight: bold;
+  padding: 5px;
   text-decoration: underline;
 }
 a:hover {

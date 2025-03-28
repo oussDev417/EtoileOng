@@ -16,13 +16,11 @@
                                 @if($slider->button_text && $slider->button_link)
                                     <a href="{{ $slider->button_link }}" class="theme-btn btn-one">
                                         <span class="text">{{ $slider->button_text }}</span>
-                                        <i class="icon-2"></i>
                                     </a>
                                 @endif
                                 @if($slider->button_text_2 && $slider->button_link_2)
                                     <a href="{{ $slider->button_link_2 }}" class="theme-btn btn-one">
                                         <span class="text">{{ $slider->button_text_2 }}</span>
-                                        <i class="icon-2"></i>
                                     </a>
                                 @endif
                             </div>

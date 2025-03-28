@@ -39,8 +39,18 @@
     <link href="{{ asset('assets/css/module-css/cta.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/module-css/team.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/module-css/news.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/page-title.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/cause-details.css') }}" rel="stylesheet">
+    <link href="assets/css/module-css/blog-details.css" rel="stylesheet">
+    <link href="assets/css/module-css/event-details.css" rel="stylesheet">
+    <link href="assets/css/module-css/contact.css" rel="stylesheet">
+    <link href="assets/css/module-css/fluid.css" rel="stylesheet">
+    <link href="assets/css/module-css/testimonial.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/funfact.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/module-css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
+
 
     
     <!-- Additional CSS -->

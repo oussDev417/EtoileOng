@@ -2,7 +2,7 @@
     <div class="sidebar-header">
         <a href="{{ route('admin.dashboard') }}" class="logo">
             <img src="{{ asset('assets/images/logo.png') }}" alt="RAONG" class="logo-img">
-            <span class="logo-text">RACED ONG</span>
+            <span class="logo-text">ONG ETOILE D'AFRIK</span>
         </a>
         <button class="sidebar-close d-md-none">
             <i class="fas fa-times"></i>
