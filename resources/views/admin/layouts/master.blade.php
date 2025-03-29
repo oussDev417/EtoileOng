@@ -398,10 +398,8 @@
     
     <!-- Custom JS -->
     <script src="{{ asset('assets/admin/js/script.js') }}"></script>
-    
-    <!-- Additional JS -->
-    @stack('scripts')
 
+    <!-- Quill Editor Configuration -->
     <script>
         // Configuration globale de Quill
         function initQuillEditor(selector, placeholder = '') {
@@ -513,6 +511,49 @@
                     .catch(error => {
                         console.error(`Error initializing editor ${editorId}:`, error);
                     });
+            });
+        });
+    </script>
+    
+    <!-- Additional JS -->
+    @stack('scripts')
+
+    <!-- Slug Generator Script -->
+    <script>
+        $(document).ready(function() {
+            function generateSlug(text) {
+                return text
+                    .toString()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^\w-]+/g, '')
+                    .replace(/--+/g, '-');
+            }
+
+            // Chercher tous les formulaires avec des champs de slug
+            $('form').each(function() {
+                const form = $(this);
+                const titleInput = form.find('input[name="title"]');
+                const slugInput = form.find('input[name="slug"]');
+                const regenerateButton = form.find('#regenerateSlug');
+
+                if (titleInput.length && slugInput.length) {
+                    titleInput.on('input', function() {
+                        if (!slugInput.val() || slugInput.val() === generateSlug(titleInput.val().trim())) {
+                            slugInput.val(generateSlug($(this).val()));
+                        }
+                    });
+
+                    if (regenerateButton.length) {
+                        regenerateButton.on('click', function(e) {
+                            e.preventDefault();
+                            slugInput.val(generateSlug(titleInput.val()));
+                        });
+                    }
+                }
             });
         });
     </script>
