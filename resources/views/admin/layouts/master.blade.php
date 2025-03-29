@@ -476,6 +476,19 @@
                     }
                 });
 
+                // Configurer le gestionnaire de formulaire
+                const form = container.closest('form');
+                if (form) {
+                    const inputId = container.id.replace('_editor', '_input');
+                    const hiddenInput = document.getElementById(inputId);
+                    
+                    if (hiddenInput) {
+                        form.addEventListener('submit', function() {
+                            hiddenInput.value = editor.root.innerHTML;
+                        });
+                    }
+                }
+
                 console.log(`Editor initialized for ${selector} with toolbar`);
                 resolve(editor);
             });
@@ -484,26 +497,22 @@
         // Initialisation après le chargement complet de la page
         window.addEventListener('load', function() {
             console.log('Window loaded, initializing editors...');
-            const editors = [
-                { selector: '#description_editor', placeholder: 'Entrez la description détaillée...' },
-                { selector: '#mission_editor', placeholder: 'Entrez la mission...' },
-                { selector: '#vision_editor', placeholder: 'Entrez la vision...' },
-                { selector: '#values_editor', placeholder: 'Entrez les valeurs...' }
-            ];
-
-            Promise.all(editors.map(editor => 
-                initQuillEditor(editor.selector, editor.placeholder)
-            )).then(quillEditors => {
-                console.log('All editors initialized successfully');
-                // Configurer les gestionnaires de formulaire
-                document.getElementById('aboutForm')?.addEventListener('submit', function(e) {
-                    quillEditors.forEach((editor, index) => {
-                        const inputId = editors[index].selector.replace('_editor', '_input');
-                        document.querySelector(inputId).value = editor.root.innerHTML;
+            
+            // Trouver tous les conteneurs d'éditeur Quill sur la page
+            const editorContainers = document.querySelectorAll('[id$="_editor"]');
+            
+            // Initialiser chaque éditeur trouvé
+            editorContainers.forEach(container => {
+                const editorId = `#${container.id}`;
+                const placeholder = container.getAttribute('data-placeholder') || 'Commencez à écrire...';
+                
+                initQuillEditor(editorId, placeholder)
+                    .then(editor => {
+                        console.log(`Editor ${editorId} initialized successfully`);
+                    })
+                    .catch(error => {
+                        console.error(`Error initializing editor ${editorId}:`, error);
                     });
-                });
-            }).catch(error => {
-                console.error('Error initializing editors:', error);
             });
         });
     </script>
